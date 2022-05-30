@@ -1,6 +1,6 @@
 ## Movie database 
 
-This is my basic movie database CRUD app using Laravel and Vue. 
+This is my basic movie database CRUD app using Laravel and Vue. Please note this is my first time using Vue. I thought it would be fun to learn while doing this but I may have not designed it using best practices.
 
 ## Getting Started
 
