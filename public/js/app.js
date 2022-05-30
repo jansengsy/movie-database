@@ -34569,9 +34569,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.movie = {};
       this.newMovieMode = this.editMovieMode = false;
     },
-    // editMovie(id) {
-    //   this.getMovie(id);
-    // },
     getMovies: function getMovies() {
       var _this = this;
 
@@ -34629,7 +34626,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://localhost:8000/api/movies/".concat(_this2.id), _this2.movie);
 
               case 4:
-                id = null;
+                _this2.id = null;
                 _context2.next = 9;
                 break;
 

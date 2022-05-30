@@ -17,9 +17,7 @@
 <script>
   import MovieTable from './components/MovieTable';
   import MovieForm from "./components/MovieForm";
-
   import axios from 'axios';
-
   export default {
     data() {
       return {
@@ -44,9 +42,6 @@
         this.movie = {};
         this.newMovieMode = this.editMovieMode = false;
       },
-      // editMovie(id) {
-      //   this.getMovie(id);
-      // },
       async getMovies() {
         try {
           const response = await axios.get('http://localhost:8000/api/movies');
@@ -65,7 +60,7 @@
           // Update movie or make new one depending on mode
           if(this.editMovieMode) {
             await axios.put(`http://localhost:8000/api/movies/${this.id}`, this.movie);
-            id = null;
+            this.id = null;
           } else {
             await axios.post('http://localhost:8000/api/movies', this.movie);
           }
