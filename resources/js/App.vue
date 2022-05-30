@@ -6,7 +6,7 @@
     <div class="add-movie-form" v-if="newMovieMode || editMovieMode">
       <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie" @cancel="closeForm"/>
     </div>
-    <MovieTable :movies="movies" @delete-movie="deleteMovie" @edit-movie="editMovie"/>
+    <MovieTable :movies="movies" :loaded="loaded" @delete-movie="deleteMovie" @edit-movie="editMovie"/>
   </div>
 </template>
 
@@ -25,6 +25,7 @@
         newMovieMode: false,
         editMovieMode: false,
         id: null,
+        loaded: false,
       }
     },
     components: {
@@ -46,6 +47,7 @@
         try {
           const response = await axios.get('http://localhost:8000/api/movies');
           this.movies = response.data;
+          this.loaded = true;
         } catch (error) {
           if (error.response.status === 422) {
             this.errors = error.response.data.errors;

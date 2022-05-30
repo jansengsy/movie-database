@@ -1,38 +1,45 @@
 <template>
-  <table class="table-fixed min-w-full">
-      <thead>
-        <tr>
-          <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Title</th>
-          <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Year</th>
-          <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Director</th>
-          <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="border-b" v-for="movie in movies" :key="movie.id">
-            <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.title }}</td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.year }}</td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.director }}</td>
-            <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.description }}</td>
-            <td>
-              <div role="group">
-                <button @click="editMovie(movie.id)">Edit</button>
-              </div>
-            </td>
-            <td>
-              <div role="group">
-                <button @click="deleteMovie(movie.id)">Delete</button>
-              </div>
-            </td>
+  <div v-if="loaded">
+    <p class="mt-2 mb-2 text-center min-w-full" v-if="!movies.length">You have no data. Add some to the database by clicking 'Add Movie' below!</p>
+    <table class="table-fixed min-w-full" v-else>
+        <thead>
+          <tr>
+            <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Title</th>
+            <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Year</th>
+            <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Director</th>
+            <th class="text-sm font-bold font-medium text-gray-900 px-6 py-4 text-left">Description</th>
           </tr>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+            <tr class="border-b" v-for="movie in movies" :key="movie.id">
+              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.title }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.year }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.director }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.description }}</td>
+              <td>
+                <div role="group">
+                  <button @click="editMovie(movie.id)">Edit</button>
+                </div>
+              </td>
+              <td>
+                <div role="group">
+                  <button @click="deleteMovie(movie.id)">Delete</button>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else>
+      <h1 class="font-medium leading-tight text-2xl mt-2 mb-2 text-center min-w-full">Loading...</h1>
+    </div>
 </template>
 
 <script>
   export default {
     props: [
       'movies',
+      'loaded',
     ],
     methods: {
       editMovie(id) {
