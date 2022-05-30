@@ -11,3 +11,19 @@ touch database/database.sqlite
 ```
 
 Then run the migrations and you should be ready to go!
+
+## Improvements
+
+I would have like to test the app and gotten the app ready for deployment but I ran out of time. 
+
+To test the app I would have used: 
+
+  - PHPUnit
+  - Laravel Dusk
+
+To prepare for deployment I would:
+
+  - Cached my routes
+  - Cached my vues
+  - Cached my config
+  - Turned off APP_DEBUG
