@@ -1,6 +1,6 @@
 <template>
   <div class="content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2">
-    <MovieForm />
+    <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie"/>
     <MovieTable :movies="movies" @delete-movie="deleteMovie"/>
   </div>
 </template>
@@ -14,6 +14,7 @@
   export default {
     data() {
       return {
+        movie: {},
         movies: [],
         errors: {},
       }
@@ -33,6 +34,19 @@
         } catch (error) {
           if (error.response.status === 422) {
             this.errors = error.response.data.errors;
+          } else {
+            console.log(error);
+          }
+        }
+      },
+      async saveMovie() {
+        try {
+          await axios.post('http://localhost:8000/api/movies', this.movie);
+          this.errors = {};
+          this.getMovies();
+        } catch (error) {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors || {};
           } else {
             console.log(error);
           }
