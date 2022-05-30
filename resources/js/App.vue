@@ -1,5 +1,7 @@
 <template>
   <div class="content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2">
+    <h1 class="font-medium leading-tight text-4xl text-red-600">Movies: </h1>
+    <br>
     <button class="mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700" @click="newMovieMode = true">Add movie</button>
     <div class="add-movie-form" v-if="newMovieMode">
       <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie" @cancel="closeForm"/>
