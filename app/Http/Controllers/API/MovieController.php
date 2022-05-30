@@ -10,6 +10,8 @@ class MovieController extends Controller
 {
     // Get all movies
     public function index() {
+
+        // If I had more time I would have added pagination using the paginate(x) method
         $movie = Movie::get();
         return response()->json($movie, 201);
     }
@@ -37,6 +39,7 @@ class MovieController extends Controller
 
     // Update movie
     public function update(Request $request, $id) {
+        // Given more time I would have created better year validation and a custom request
         // Validate request
         $this->validate($request, [
             'title' => 'required|max:255',

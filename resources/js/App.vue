@@ -2,11 +2,15 @@
   <div class="content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2">
     <h1 class="font-medium leading-tight text-4xl text-red-600">Movies: </h1>
     <br>
-    <button class="mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700" @click="newMovieMode = true">Add movie</button>
+    <button 
+      class="mb-2 mt-2 py-2 px-4 shadow-sm text-sm rounded-md text-white font-bold bg-green-500 hover:bg-green-700" 
+      @click="newMovieMode = true">
+        Add movie
+    </button>
     <div class="add-movie-form" v-if="newMovieMode || editMovieMode">
       <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie" @cancel="closeForm"/>
     </div>
-    <MovieTable :movies="movies" :loaded="loaded" @delete-movie="deleteMovie" @edit-movie="editMovie"/>
+    <MovieTable :movies="movies" :loaded="loaded" @delete-movie="deleteMovie" @edit-movie="getMovie"/>
   </div>
 </template>
 
@@ -19,7 +23,7 @@
   export default {
     data() {
       return {
-        movie: {},
+        movie: {}, // Bound to the input field within the movie form.
         movies: [],
         errors: {},
         newMovieMode: false,
@@ -40,9 +44,9 @@
         this.movie = {};
         this.newMovieMode = this.editMovieMode = false;
       },
-      editMovie(id) {
-        this.getMovie(id);
-      },
+      // editMovie(id) {
+      //   this.getMovie(id);
+      // },
       async getMovies() {
         try {
           const response = await axios.get('http://localhost:8000/api/movies');
@@ -58,8 +62,10 @@
       },
       async saveMovie() {
         try {
+          // Update movie or make new one depending on mode
           if(this.editMovieMode) {
             await axios.put(`http://localhost:8000/api/movies/${this.id}`, this.movie);
+            id = null;
           } else {
             await axios.post('http://localhost:8000/api/movies', this.movie);
           }

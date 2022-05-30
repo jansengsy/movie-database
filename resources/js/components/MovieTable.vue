@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded">
+  <div class="mt-2 shadow-md" v-if="loaded">
     <p class="mt-2 mb-2 text-center min-w-full" v-if="!movies.length">You have no data. Add some to the database by clicking 'Add Movie' below!</p>
     <table class="table-fixed min-w-full" v-else>
         <thead>

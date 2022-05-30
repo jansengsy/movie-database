@@ -34548,6 +34548,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       movie: {},
+      // Bound to the input field within the movie form.
       movies: [],
       errors: {},
       newMovieMode: false,
@@ -34568,9 +34569,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.movie = {};
       this.newMovieMode = this.editMovieMode = false;
     },
-    editMovie: function editMovie(id) {
-      this.getMovie(id);
-    },
+    // editMovie(id) {
+    //   this.getMovie(id);
+    // },
     getMovies: function getMovies() {
       var _this = this;
 
@@ -34620,7 +34621,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 0;
 
                 if (!_this2.editMovieMode) {
-                  _context2.next = 6;
+                  _context2.next = 7;
                   break;
                 }
 
@@ -34628,25 +34629,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://localhost:8000/api/movies/".concat(_this2.id), _this2.movie);
 
               case 4:
-                _context2.next = 8;
+                id = null;
+                _context2.next = 9;
                 break;
 
-              case 6:
-                _context2.next = 8;
+              case 7:
+                _context2.next = 9;
                 return axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/movies', _this2.movie);
 
-              case 8:
+              case 9:
                 _this2.errors = {};
 
                 _this2.closeForm();
 
                 _this2.getMovies();
 
-                _context2.next = 16;
+                _context2.next = 17;
                 break;
 
-              case 13:
-                _context2.prev = 13;
+              case 14:
+                _context2.prev = 14;
                 _context2.t0 = _context2["catch"](0);
 
                 if (_context2.t0.response.status === 422) {
@@ -34655,12 +34657,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(_context2.t0);
                 }
 
-              case 16:
+              case 17:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 13]]);
+        }, _callee2, null, [[0, 14]]);
       }))();
     },
     getMovie: function getMovie(id) {
@@ -34832,11 +34834,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MovieTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MovieTable");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700",
+    "class": "mb-2 mt-2 py-2 px-4 shadow-sm text-sm rounded-md text-white font-bold bg-green-500 hover:bg-green-700",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $data.newMovieMode = true;
     })
-  }, "Add movie"), $data.newMovieMode || $data.editMovieMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
+  }, " Add movie "), $data.newMovieMode || $data.editMovieMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
     movie: $data.movie,
     errors: $data.errors,
     onSaveMovie: $options.saveMovie,
@@ -34847,7 +34849,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     movies: $data.movies,
     loaded: $data.loaded,
     onDeleteMovie: $options.deleteMovie,
-    onEditMovie: $options.editMovie
+    onEditMovie: $options.getMovie
   }, null, 8
   /* PROPS */
   , ["movies", "loaded", "onDeleteMovie", "onEditMovie"])]);
@@ -34869,10 +34871,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "shadow-md overflow-hidden"
+  "class": "shadow-md overflow-hidden bg-white"
 };
 var _hoisted_2 = {
-  "class": "px-4 py-5 bg-white"
+  "class": "p-4"
 };
 var _hoisted_3 = {
   "class": "grid grid-cols-3 gap-4"
@@ -34938,7 +34940,7 @@ var _hoisted_15 = {
   "class": "block text-sm font-medium text-red-500"
 };
 var _hoisted_16 = {
-  "class": "px-4 py-3 bg-gray-50 text-right sm:px-6"
+  "class": "px-4 pb-4 text-right"
 };
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -35028,7 +35030,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  key: 0
+  key: 0,
+  "class": "mt-2 shadow-md"
 };
 var _hoisted_2 = {
   key: 0,
