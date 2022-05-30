@@ -19600,7 +19600,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       movie: {},
       movies: [],
-      errors: {}
+      errors: {},
+      newMovieMode: false
     };
   },
   components: {
@@ -19611,6 +19612,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.getMovies();
   },
   methods: {
+    closeForm: function closeForm() {
+      this.movie = {};
+      this.newMovieMode = false;
+    },
     getMovies: function getMovies() {
       var _this = this;
 
@@ -19791,18 +19796,28 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2"
 };
+var _hoisted_2 = {
+  key: 0,
+  "class": "add-movie-form"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MovieForm = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MovieForm");
 
   var _component_MovieTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MovieTable");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $data.newMovieMode = true;
+    })
+  }, "Add movie"), $data.newMovieMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
     movie: $data.movie,
     errors: $data.errors,
-    onSaveMovie: $options.saveMovie
+    onSaveMovie: $options.saveMovie,
+    onCancel: $options.closeForm
   }, null, 8
   /* PROPS */
-  , ["movie", "errors", "onSaveMovie"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieTable, {
+  , ["movie", "errors", "onSaveMovie", "onCancel"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieTable, {
     movies: $data.movies,
     onDeleteMovie: $options.deleteMovie
   }, null, 8

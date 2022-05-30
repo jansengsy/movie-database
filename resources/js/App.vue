@@ -1,6 +1,9 @@
 <template>
   <div class="content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2">
-    <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie"/>
+    <button class="mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700" @click="newMovieMode = true">Add movie</button>
+    <div class="add-movie-form" v-if="newMovieMode">
+      <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie" @cancel="closeForm"/>
+    </div>
     <MovieTable :movies="movies" @delete-movie="deleteMovie"/>
   </div>
 </template>
@@ -17,6 +20,7 @@
         movie: {},
         movies: [],
         errors: {},
+        newMovieMode: false,
       }
     },
     components: {
@@ -27,6 +31,10 @@
       this.getMovies();
     },
     methods: {
+      closeForm() {
+        this.movie = {};
+        this.newMovieMode = false;
+      },
       async getMovies() {
         try {
           const response = await axios.get('http://localhost:8000/api/movies');
