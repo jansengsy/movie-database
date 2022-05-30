@@ -16,7 +16,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div id="app"></div>
+        <div id="app" class="flex justify-center items-center"></div>
         <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

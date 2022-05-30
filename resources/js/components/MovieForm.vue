@@ -1,0 +1,3 @@
+<template>
+  <h1>Movie form</h1>
+</template>
