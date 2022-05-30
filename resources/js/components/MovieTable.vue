@@ -16,7 +16,7 @@
             <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.description }}</td>
             <td>
               <div role="group">
-                <button>Edit</button>
+                <button @click="editMovie(movie.id)">Edit</button>
               </div>
             </td>
             <td>
@@ -35,6 +35,9 @@
       'movies',
     ],
     methods: {
+      editMovie(id) {
+        this.$emit('edit-movie', id);
+      },
       deleteMovie(id) {
         this.$emit('delete-movie', id);
       }

@@ -3,10 +3,10 @@
     <h1 class="font-medium leading-tight text-4xl text-red-600">Movies: </h1>
     <br>
     <button class="mb-2 mt-2 py-2 px-4 border shadow-sm text-sm font-medium rounded-md text-white font-bold bg-green-500 hover:bg-green-700" @click="newMovieMode = true">Add movie</button>
-    <div class="add-movie-form" v-if="newMovieMode">
+    <div class="add-movie-form" v-if="newMovieMode || editMovieMode">
       <MovieForm :movie="movie" :errors="errors" @save-movie="saveMovie" @cancel="closeForm"/>
     </div>
-    <MovieTable :movies="movies" @delete-movie="deleteMovie"/>
+    <MovieTable :movies="movies" @delete-movie="deleteMovie" @edit-movie="editMovie"/>
   </div>
 </template>
 
@@ -23,6 +23,8 @@
         movies: [],
         errors: {},
         newMovieMode: false,
+        editMovieMode: false,
+        id: null,
       }
     },
     components: {
@@ -35,7 +37,10 @@
     methods: {
       closeForm() {
         this.movie = {};
-        this.newMovieMode = false;
+        this.newMovieMode = this.editMovieMode = false;
+      },
+      editMovie(id) {
+        this.getMovie(id);
       },
       async getMovies() {
         try {
@@ -51,8 +56,13 @@
       },
       async saveMovie() {
         try {
-          await axios.post('http://localhost:8000/api/movies', this.movie);
+          if(this.editMovieMode) {
+            await axios.put(`http://localhost:8000/api/movies/${this.id}`, this.movie);
+          } else {
+            await axios.post('http://localhost:8000/api/movies', this.movie);
+          }
           this.errors = {};
+          this.closeForm();
           this.getMovies();
         } catch (error) {
           if (error.response.status === 422) {
@@ -60,6 +70,17 @@
           } else {
             console.log(error);
           }
+        }
+      },
+      async getMovie(id) {
+        this.id = id;
+        this.editMovieMode = true;
+        try {
+          const response = await axios.get(`http://localhost:8000/api/movies/${id}`);
+          this.movie = response.data;
+          this.errors = {};
+        } catch (error) {
+          console.log(error);
         }
       },
       async deleteMovie(id) {

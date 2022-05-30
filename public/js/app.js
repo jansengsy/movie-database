@@ -19601,7 +19601,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       movie: {},
       movies: [],
       errors: {},
-      newMovieMode: false
+      newMovieMode: false,
+      editMovieMode: false,
+      id: null
     };
   },
   components: {
@@ -19614,7 +19616,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     closeForm: function closeForm() {
       this.movie = {};
-      this.newMovieMode = false;
+      this.newMovieMode = this.editMovieMode = false;
+    },
+    editMovie: function editMovie(id) {
+      this.getMovie(id);
     },
     getMovies: function getMovies() {
       var _this = this;
@@ -19662,19 +19667,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.prev = 0;
-                _context2.next = 3;
+
+                if (!_this2.editMovieMode) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://localhost:8000/api/movies/".concat(_this2.id), _this2.movie);
+
+              case 4:
+                _context2.next = 8;
+                break;
+
+              case 6:
+                _context2.next = 8;
                 return axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:8000/api/movies', _this2.movie);
 
-              case 3:
+              case 8:
                 _this2.errors = {};
+
+                _this2.closeForm();
 
                 _this2.getMovies();
 
-                _context2.next = 10;
+                _context2.next = 16;
                 break;
 
-              case 7:
-                _context2.prev = 7;
+              case 13:
+                _context2.prev = 13;
                 _context2.t0 = _context2["catch"](0);
 
                 if (_context2.t0.response.status === 422) {
@@ -19683,48 +19704,83 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   console.log(_context2.t0);
                 }
 
-              case 10:
+              case 16:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 13]]);
       }))();
     },
-    deleteMovie: function deleteMovie(id) {
+    getMovie: function getMovie(id) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
         return _regeneratorRuntime().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://localhost:8000/api/movies/".concat(id));
+                _this3.id = id;
+                _this3.editMovieMode = true;
+                _context3.prev = 2;
+                _context3.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:8000/api/movies/".concat(id));
 
-              case 3:
-                _this3.getMovies();
-
-                _context3.next = 9;
+              case 5:
+                response = _context3.sent;
+                _this3.movie = response.data;
+                _this3.errors = {};
+                _context3.next = 13;
                 break;
 
-              case 6:
-                _context3.prev = 6;
-                _context3.t0 = _context3["catch"](0);
+              case 10:
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](2);
+                console.log(_context3.t0);
 
-                if (_context3.t0.response.status === 404) {
-                  _this3.errors = _context3.t0.response.data.errors;
-                } else {
-                  console.log(_context3.t0);
-                }
-
-              case 9:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 6]]);
+        }, _callee3, null, [[2, 10]]);
+      }))();
+    },
+    deleteMovie: function deleteMovie(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://localhost:8000/api/movies/".concat(id));
+
+              case 3:
+                _this4.getMovies();
+
+                _context4.next = 9;
+                break;
+
+              case 6:
+                _context4.prev = 6;
+                _context4.t0 = _context4["catch"](0);
+
+                if (_context4.t0.response.status === 404) {
+                  _this4.errors = _context4.t0.response.data.errors;
+                } else {
+                  console.log(_context4.t0);
+                }
+
+              case 9:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 6]]);
       }))();
     }
   }
@@ -19772,6 +19828,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['movies'],
   methods: {
+    editMovie: function editMovie(id) {
+      this.$emit('edit-movie', id);
+    },
     deleteMovie: function deleteMovie(id) {
       this.$emit('delete-movie', id);
     }
@@ -19821,7 +19880,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $data.newMovieMode = true;
     })
-  }, "Add movie"), $data.newMovieMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
+  }, "Add movie"), $data.newMovieMode || $data.editMovieMode ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm, {
     movie: $data.movie,
     errors: $data.errors,
     onSaveMovie: $options.saveMovie,
@@ -19830,10 +19889,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* PROPS */
   , ["movie", "errors", "onSaveMovie", "onCancel"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieTable, {
     movies: $data.movies,
-    onDeleteMovie: $options.deleteMovie
+    onDeleteMovie: $options.deleteMovie,
+    onEditMovie: $options.editMovie
   }, null, 8
   /* PROPS */
-  , ["movies", "onDeleteMovie"])]);
+  , ["movies", "onDeleteMovie", "onEditMovie"])]);
 }
 
 /***/ }),
@@ -20038,17 +20098,14 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "text-sm text-gray-900 font-light px-6 py-4"
 };
-
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  role: "group"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, "Edit")])], -1
-/* HOISTED */
-);
-
-var _hoisted_8 = {
+var _hoisted_7 = {
   role: "group"
 };
-var _hoisted_9 = ["onClick"];
+var _hoisted_8 = ["onClick"];
+var _hoisted_9 = {
+  role: "group"
+};
+var _hoisted_10 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.movies, function (movie) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
@@ -20062,13 +20119,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(movie.description), 1
     /* TEXT */
-    ), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.editMovie(movie.id);
+      }
+    }, "Edit", 8
+    /* PROPS */
+    , _hoisted_8)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       onClick: function onClick($event) {
         return $options.deleteMovie(movie.id);
       }
     }, "Delete", 8
     /* PROPS */
-    , _hoisted_9)])])]);
+    , _hoisted_10)])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])]);
