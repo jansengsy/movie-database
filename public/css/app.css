@@ -433,6 +433,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .col-start-1 {
   grid-column-start: 1;
 }
+.m-1 {
+  margin: 0.25rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -469,6 +472,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .min-w-full {
   min-width: 100%;
 }
+.max-w-\[400px\] {
+  max-width: 400px;
+}
 .table-fixed {
   table-layout: fixed;
 }
@@ -486,6 +492,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .overflow-hidden {
   overflow: hidden;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 .rounded-md {
   border-radius: 0.375rem;

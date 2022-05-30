@@ -35055,13 +35055,13 @@ var _hoisted_5 = {
   "class": "text-sm text-gray-900 font-light px-6 py-4"
 };
 var _hoisted_6 = {
-  "class": "text-sm text-gray-900 font-light px-6 py-4"
+  "class": "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
 };
 var _hoisted_7 = {
-  "class": "text-sm text-gray-900 font-light px-6 py-4"
+  "class": "text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
 };
 var _hoisted_8 = {
-  "class": "text-sm text-gray-900 font-light px-6 py-4"
+  "class": "text-sm text-gray-900 font-light px-6 py-4 max-w-[400px]"
 };
 var _hoisted_9 = {
   role: "group"
@@ -35098,6 +35098,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(movie.description), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "m-1",
       onClick: function onClick($event) {
         return $options.editMovie(movie.id);
       }
@@ -35106,6 +35107,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })], 8
     /* PROPS */
     , _hoisted_10)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "m-1",
       onClick: function onClick($event) {
         return $options.deleteMovie(movie.id);
       }

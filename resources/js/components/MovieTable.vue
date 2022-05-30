@@ -13,17 +13,17 @@
         <tbody>
             <tr class="border-b" v-for="movie in movies" :key="movie.id">
               <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.title }}</td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.year }}</td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.director }}</td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.description }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ movie.year }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{{ movie.director }}</td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 max-w-[400px]">{{ movie.description }}</td>
               <td>
                 <div role="group">
-                  <button @click="editMovie(movie.id)"><font-awesome-icon icon="edit" /></button>
+                  <button class="m-1" @click="editMovie(movie.id)"><font-awesome-icon icon="edit" /></button>
                 </div>
               </td>
               <td>
                 <div role="group">
-                  <button @click="deleteMovie(movie.id)"><font-awesome-icon icon="trash-can" /></button>
+                  <button class="m-1" @click="deleteMovie(movie.id)"><font-awesome-icon icon="trash-can" /></button>
                 </div>
               </td>
             </tr>
