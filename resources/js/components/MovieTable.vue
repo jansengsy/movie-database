@@ -21,7 +21,7 @@
             </td>
             <td>
               <div role="group">
-                <button>Delete</button>
+                <button @click="deleteMovie(movie.id)">Delete</button>
               </div>
             </td>
           </tr>
@@ -33,6 +33,11 @@
   export default {
     props: [
       'movies',
-    ]
+    ],
+    methods: {
+      deleteMovie(id) {
+        this.$emit('delete-movie', id);
+      }
+    }
   }
 </script>

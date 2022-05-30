@@ -1,7 +1,7 @@
 <template>
   <div class="content w-10/12 border-2 border-solid border-gray-500 mb-2 mt-2 p-2">
     <MovieForm />
-    <MovieTable :movies="movies"/>
+    <MovieTable :movies="movies" @delete-movie="deleteMovie"/>
   </div>
 </template>
 
@@ -32,6 +32,18 @@
           this.movies = response.data;
         } catch (error) {
           if (error.response.status === 422) {
+            this.errors = error.response.data.errors;
+          } else {
+            console.log(error);
+          }
+        }
+      },
+      async deleteMovie(id) {
+        try {
+          await axios.delete(`http://localhost:8000/api/movies/${id}`);
+          this.getMovies();
+        } catch (error) {
+          if (error.response.status === 404) {
             this.errors = error.response.data.errors;
           } else {
             console.log(error);

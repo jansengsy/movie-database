@@ -19646,6 +19646,42 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 7]]);
       }))();
+    },
+    deleteMovie: function deleteMovie(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://localhost:8000/api/movies/".concat(id));
+
+              case 3:
+                _this2.getMovies();
+
+                _context2.next = 9;
+                break;
+
+              case 6:
+                _context2.prev = 6;
+                _context2.t0 = _context2["catch"](0);
+
+                if (_context2.t0.response.status === 404) {
+                  _this2.errors = _context2.t0.response.data.errors;
+                } else {
+                  console.log(_context2.t0);
+                }
+
+              case 9:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 6]]);
+      }))();
     }
   }
 });
@@ -19664,7 +19700,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['movies']
+  props: ['movies'],
+  methods: {
+    deleteMovie: function deleteMovie(id) {
+      this.$emit('delete-movie', id);
+    }
+  }
 });
 
 /***/ }),
@@ -19691,10 +19732,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MovieTable = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MovieTable");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieForm), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MovieTable, {
-    movies: $data.movies
+    movies: $data.movies,
+    onDeleteMovie: $options.deleteMovie
   }, null, 8
   /* PROPS */
-  , ["movies"])]);
+  , ["movies", "onDeleteMovie"])]);
 }
 
 /***/ }),
@@ -19745,12 +19787,10 @@ var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_4 = {
   role: "group"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, "Delete")])], -1
-/* HOISTED */
-);
-
+};
+var _hoisted_5 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.movies, function (movie) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
@@ -19764,7 +19804,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(movie.description), 1
     /* TEXT */
-    ), _hoisted_3, _hoisted_4]);
+    ), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $options.deleteMovie(movie.id);
+      }
+    }, "Delete", 8
+    /* PROPS */
+    , _hoisted_5)])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])]);
