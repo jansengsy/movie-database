@@ -18,12 +18,12 @@
               <td class="text-sm text-gray-900 font-light px-6 py-4">{{ movie.description }}</td>
               <td>
                 <div role="group">
-                  <button @click="editMovie(movie.id)">Edit</button>
+                  <button @click="editMovie(movie.id)"><font-awesome-icon icon="edit" /></button>
                 </div>
               </td>
               <td>
                 <div role="group">
-                  <button @click="deleteMovie(movie.id)">Delete</button>
+                  <button @click="deleteMovie(movie.id)"><font-awesome-icon icon="trash-can" /></button>
                 </div>
               </td>
             </tr>
@@ -36,11 +36,16 @@
 </template>
 
 <script>
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
   export default {
     props: [
       'movies',
       'loaded',
     ],
+    components: {
+      FontAwesomeIcon,
+    },
     methods: {
       editMovie(id) {
         this.$emit('edit-movie', id);
